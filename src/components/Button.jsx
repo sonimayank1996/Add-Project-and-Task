@@ -1,5 +1,4 @@
 export default function Button({children, ...props}) {
-    console.log(props); // { onClick: () => addProjectHandler(true)}
     
   return (
     <button

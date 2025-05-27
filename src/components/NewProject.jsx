@@ -1,12 +1,15 @@
-import { useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import Input from "./Input";
 import Modal from "./Modal";
+import { ProjectContext } from "../context/project-context";
 
-export default function NewProject({ onAdd, onCancel }) {
+export default function NewProject() {
   const modal = useRef();
   const title = useRef();
   const description = useRef();
   const date = useRef();
+
+  const projCtx = useContext(ProjectContext)
 
   function saveHandler() {
     const titleValue = title.current.value;
@@ -21,7 +24,7 @@ export default function NewProject({ onAdd, onCancel }) {
       modal.current.open();
       return;
     }
-    onAdd({
+    projCtx.addProject({
       id: Math.random() * 10 + Math.random() * 10 + Math.random() * 10,
       title: title.current.value,
       description: description.current.value,
@@ -38,7 +41,7 @@ export default function NewProject({ onAdd, onCancel }) {
       <div className="w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
-            <button onClick={onCancel} className="text-stone-800 hover:text-stone-950">
+            <button onClick={projCtx.onCancel} className="text-stone-800 hover:text-stone-950">
               Cancel
             </button>
           </li>

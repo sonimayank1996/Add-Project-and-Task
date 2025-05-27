@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ProjectContext } from "../context/project-context";
 
-export default function NewTask({onTaskHandler}) {
+export default function NewTask() {
   const [enterTask, setEnterTask] = useState('');
-
+  const projectCtx = useContext(ProjectContext);
+  
   function handleChange(e) {
     setEnterTask(e.target.value);
   }
 
   function onAddTask() {
-    onTaskHandler(enterTask);
+    projectCtx.taskHandler(enterTask);
     setEnterTask('')
   }
   return (

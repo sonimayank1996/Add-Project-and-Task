@@ -1,15 +1,10 @@
+import { useContext } from "react";
 import Tasks from "./Tasks";
+import { ProjectContext } from "../context/project-context";
 
-export default function ProjectDetails({
-  deleteHandler,
-  onTaskHandler,
-  clearHandler,
-  projectList,
-  selectedProjectId,
-}) {
-  
-  const projectItem = projectList.find((e) => e.id === selectedProjectId);
- 
+export default function ProjectDetails() {
+  const projectCtx = useContext(ProjectContext);
+  const projectItem = projectCtx.projectData.projects.find((e) => e.id === projectCtx.projectData.selectedProjectId);
 
   return (
     <>
@@ -21,7 +16,7 @@ export default function ProjectDetails({
             </h1>
             <button
               className="text-stone-600 hover:text-stone-950"
-              onClick={() => deleteHandler()}
+              onClick={() => projectCtx.onDelete()}
             >
               Delete
             </button>
@@ -31,10 +26,10 @@ export default function ProjectDetails({
             {projectItem.description}
           </p>
         </header>
-{/* 
-        <p>Learn React from the group up</p>
-        <p>Start with the basics, finish with advance knowledge</p> */}
-        <Tasks onTaskHandler={onTaskHandler} clearHandler={clearHandler} projectItem={projectItem} />
+
+        <Tasks
+          projectItem={projectItem}
+        />
       </div>
     </>
   );
